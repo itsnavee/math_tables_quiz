@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Math Tables Generator</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <form method="POST" action="/">
+      <label for="param1_min">Param 1 Min:</label>
+      <input
+        type="number"
+        id="param1_min"
+        name="param1_min"
+        value="{{ param1_min }}"
+        required
+      />
+      <br />
+
+      <label for="param1_max">Param 1 Max:</label>
+      <input
+        type="number"
+        id="param1_max"
+        name="param1_max"
+        value="{{ param1_max }}"
+        required
+      />
+      <br />
+
+      <label for="param2_min">Param 2 Min:</label>
+      <input
+        type="number"
+        id="param2_min"
+        name="param2_min"
+        value="{{ param2_min }}"
+        required
+      />
+      <br />
+
+      <label for="param2_max">Param 2 Max:</label>
+      <input
+        type="number"
+        id="param2_max"
+        name="param2_max"
+        value="{{ param2_max }}"
+        required
+      />
+      <br />
+
+      <label for="num_questions">Number of Questions:</label>
+      <input
+        type="number"
+        id="num_questions"
+        name="num_questions"
+        value="{{ num_questions }}"
+        required
+      />
+      <br />
+
+      <input type="submit" value="Generate Math Tables" />
+    </form>
+
+    {% if questions %}
+    <div class="header">
+      <div class="left">
+        <p>
+          Date:
+          <input
+            type="text"
+            id="date"
+            name="date"
+            value="{{ today_date }}"
+            readonly
+          />
+        </p>
+      </div>
+      <div class="right">
+        <p>
+          Student Name:
+          <input
+            type="text"
+            id="student_name"
+            name="student_name"
+            placeholder="Enter student name"
+          />
+        </p>
+      </div>
+    </div>
+
+    <ul class="quiz-questions">
+      {% for question in questions %}
+      <li>
+        <span class="question">{{ question }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <div class="summary-box">
+      <div class="left-summary">
+        <p>Total Questions: {{ questions|length }}</p>
+      </div>
+      <div class="right-summary">
+        <p>
+          No. of Mistakes:
+          <input
+            type="text"
+            id="marks"
+            name="marks"
+            placeholder="No of mistakes"
+          />
+        </p>
+      </div>
+    </div>
+
+    {% endif %}
+  </body>
+</html>
+
+<script>
+  var today = new Date();
+  var dateField = document.getElementById("date");
+  var month = today.getMonth() + 1;
+  var day = today.getDate();
+  var year = today.getFullYear();
+  var formattedDate = month + "/" + day + "/" + year;
+  dateField.value = formattedDate;
+</script>
